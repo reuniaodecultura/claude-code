@@ -1,0 +1,5 @@
+.agents/
+.claude/
+skills-lock.json
+debate-module/.next/
+debate-module/node_modules/
