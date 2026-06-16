@@ -1,0 +1,87 @@
+<!--
+  ============================================================================
+  reuniaodecultura.com  →  obrigado.html  (página de confirmação da inscrição)
+  Tags de rastreamento + CONVERSÃO do GOOGLE ADS
+  ============================================================================
+  Plataformas: Google Tag Manager (GTM) + Google Analytics 4 (GA4) + Google Ads
+
+  Esta é a página de "Obrigado", carregada APÓS o usuário concluir a inscrição.
+  É o local recomendado para disparar a conversão do Google Ads, pois garante
+  que o lead realmente foi concluído.
+
+  COMO USAR NO HOSTINGER:
+  hPanel → Gerenciador de Arquivos → public_html → editar obrigado.html
+
+  ⚠️ TROQUE OS PLACEHOLDERS pelos seus IDs reais:
+     GTM-XXXXXXX                  → seu Container ID do Google Tag Manager
+     G-XXXXXXXXXX                 → seu Measurement ID do GA4
+     AW-XXXXXXXXX                 → seu Conversion ID do Google Ads
+     AW-XXXXXXXXX/AbC-D_efG-h1i2  → Conversion ID/Label da ação de inscrição
+
+  ⚠️ EVITE CONTAGEM DUPLICADA: se a conversão do Google Ads já estiver
+     configurada DENTRO do GTM (acionada pela página /obrigado), NÃO inclua
+     também o BLOCO 4 abaixo. Use apenas um caminho.
+-->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 1 — GOOGLE TAG MANAGER  (o mais ALTO possível dentro do <head>)
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 2 — GA4 + GOOGLE ADS via gtag.js  (logo após o BLOCO 1, no <head>)
+     Carrega a biblioteca uma vez e registra GA4 e Google Ads.
+     Omita o 'config' do GA4 se ele já estiver dentro do GTM.
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');   // GA4  (page_view automático)
+  gtag('config', 'AW-XXXXXXXXX');   // Google Ads
+</script>
+<!-- End Google tag -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 3 — GTM (noscript)  (IMEDIATAMENTE após a abertura do <body>)
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 4 — CONVERSÃO DO GOOGLE ADS (dispara no carregamento da página)
+     Colar antes do fechamento </body>.
+     Requer o BLOCO 2 (gtag.js) carregado.
+     ⚠️ Substitua o Conversion ID/Label completo no campo 'send_to'.
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Event snippet for Inscrição conversion page -->
+<script>
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      'send_to': 'AW-XXXXXXXXX/AbC-D_efG-h1i2',
+      'value': 1.0,
+      'currency': 'BRL'
+    });
+
+    // (Opcional) também marca o lead concluído no GA4
+    gtag('event', 'sign_up', {
+      event_category: 'inscricao',
+      event_label: 'pagina_obrigado'
+    });
+  }
+</script>
+<!-- End event snippet -->
