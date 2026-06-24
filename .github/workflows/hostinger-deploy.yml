@@ -16,7 +16,7 @@ name: Hostinger · Publicar páginas
 
 on:
   push:
-    branches: [main]
+    branches: [chat]
     paths:
       - 'site/index.html'
       - 'site/obrigado.html'
