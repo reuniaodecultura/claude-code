@@ -1,0 +1,89 @@
+<!--
+  ============================================================================
+  reuniaodecultura.com  →  index.html
+  Tags de rastreamento e conversão de INSCRIÇÃO DE FORMULÁRIO
+  ============================================================================
+  Plataformas: Google Tag Manager (GTM) + Google Analytics 4 (GA4) + Google Ads
+
+  COMO USAR NO HOSTINGER:
+  hPanel → Gerenciador de Arquivos → public_html → editar index.html
+  Cole cada bloco no lugar indicado pelos comentários.
+
+  ⚠️ TROQUE OS PLACEHOLDERS pelos seus IDs reais:
+     GTM-XXXXXXX     → seu Container ID do Google Tag Manager
+     G-XXXXXXXXXX    → seu Measurement ID do GA4
+
+  ⚠️ EVITE CONTAGEM DUPLICADA:
+     Se você já dispara o GA4 DENTRO do GTM, NÃO inclua também o bloco
+     gtag.js do GA4 abaixo — use apenas um dos dois caminhos.
+-->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 1 — GOOGLE TAG MANAGER  (colar o mais ALTO possível dentro do <head>)
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 2 — GA4 via gtag.js  (colar logo após o BLOCO 1, dentro do <head>)
+     Omita se o GA4 já estiver configurado dentro do GTM.
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google tag (gtag.js) - GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<!-- End GA4 -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 3 — GTM (noscript)  (colar IMEDIATAMENTE após a abertura do <body>)
+     ════════════════════════════════════════════════════════════════════════ -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     BLOCO 4 — EVENTO DE CONVERSÃO NO ENVIO DO FORMULÁRIO DE INSCRIÇÃO
+     Colar antes do fechamento </body>.
+     Dispara para o GA4 (evento "generate_lead") e empurra o evento
+     "form_inscricao" para o dataLayer (use-o como gatilho no GTM, p.ex. para
+     a conversão do Google Ads se você optar por dispará-la já no envio).
+
+     ⚠️ Ajuste o seletor do formulário:
+        - Se o <form> tiver id, troque por document.getElementById('SEU_ID')
+        - O exemplo abaixo pega o PRIMEIRO <form> da página.
+     ════════════════════════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    var form = document.querySelector('form'); // ajuste o seletor se necessário
+    if (!form) return;
+    form.addEventListener('submit', function () {
+      window.dataLayer = window.dataLayer || [];
+
+      // Evento padronizado para o GTM (gatilho de "Evento personalizado")
+      window.dataLayer.push({ event: 'form_inscricao' });
+
+      // Evento direto no GA4 (caso use gtag.js do BLOCO 2)
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          event_category: 'inscricao',
+          event_label: 'formulario_index',
+          value: 1
+        });
+      }
+    });
+  })();
+</script>

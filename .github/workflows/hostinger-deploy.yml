@@ -1,0 +1,52 @@
+name: Hostinger · Publicar páginas
+
+# Publica AO VIVO no Hostinger (via FTPS) sempre que site/index.html ou
+# site/obrigado.html mudarem na branch de produção (após o merge de um PR).
+#
+# Envio cirúrgico: sobe SOMENTE esses dois arquivos com "curl -T".
+# NÃO espelha pastas nem apaga nada — o resto do public_html fica intacto.
+#
+# Portão de aprovação: este job usa o environment "production". Em
+# Settings → Environments → production você pode exigir revisores, de modo
+# que a publicação só ocorra após aprovação manual — mesmo depois do merge.
+#
+# Pré-requisitos (Settings → Secrets and variables → Actions):
+#   Secrets:  HOSTINGER_FTP_HOST, HOSTINGER_FTP_USER, HOSTINGER_FTP_PASS
+#   Variável (opcional): HOSTINGER_REMOTE_DIR  (padrão: public_html)
+
+on:
+  push:
+    branches: [chat]
+    paths:
+      - 'site/index.html'
+      - 'site/obrigado.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enviar páginas alteradas via FTPS
+        env:
+          FTP_HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+          FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
+          FTP_PASS: ${{ secrets.HOSTINGER_FTP_PASS }}
+          REMOTE_DIR: ${{ vars.HOSTINGER_REMOTE_DIR || 'public_html' }}
+        run: |
+          set -euo pipefail
+          for f in index.html obrigado.html; do
+            if [ -f "site/$f" ]; then
+              echo "Publicando site/$f -> $REMOTE_DIR/$f"
+              curl --fail --ssl-reqd --connect-timeout 30 \
+                -T "site/$f" \
+                --user "$FTP_USER:$FTP_PASS" \
+                "ftp://$FTP_HOST/$REMOTE_DIR/$f"
+            fi
+          done
+          echo "Publicação concluída."

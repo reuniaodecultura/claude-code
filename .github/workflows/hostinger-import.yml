@@ -1,0 +1,53 @@
+name: Hostinger · Importar páginas ao vivo
+
+# Baixa o index.html e o obrigado.html que JÁ estão no ar no Hostinger
+# (via FTPS) e abre um Pull Request com eles em site/.
+# Use isto UMA vez para semear o repositório, ou sempre que quiser
+# re-sincronizar com o que está publicado.
+#
+# Rodar: aba "Actions" → este workflow → "Run workflow".
+#
+# Pré-requisitos (Settings → Secrets and variables → Actions):
+#   Secrets:  HOSTINGER_FTP_HOST, HOSTINGER_FTP_USER, HOSTINGER_FTP_PASS
+#   Variável (opcional): HOSTINGER_REMOTE_DIR  (padrão: public_html)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Baixar páginas ao vivo via FTPS
+        env:
+          FTP_HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+          FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
+          FTP_PASS: ${{ secrets.HOSTINGER_FTP_PASS }}
+          REMOTE_DIR: ${{ vars.HOSTINGER_REMOTE_DIR || 'public_html' }}
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          for f in index.html obrigado.html; do
+            echo "Baixando $REMOTE_DIR/$f -> site/$f"
+            curl --fail --ssl-reqd --connect-timeout 30 \
+              -o "site/$f" \
+              --user "$FTP_USER:$FTP_PASS" \
+              "ftp://$FTP_HOST/$REMOTE_DIR/$f"
+          done
+
+      - name: Abrir Pull Request com o snapshot
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: import/hostinger-live
+          title: "Importar páginas ao vivo do Hostinger (index + obrigado)"
+          commit-message: "chore(site): importar index.html e obrigado.html do Hostinger"
+          body: |
+            Snapshot das páginas atualmente publicadas em reuniaodecultura.com,
+            baixadas via FTPS para `site/`. Serve de base para o pipeline de
+            edição → aprovação → publicação.
