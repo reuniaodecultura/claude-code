@@ -22,6 +22,9 @@ on:
       - 'site/obrigado.html'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
