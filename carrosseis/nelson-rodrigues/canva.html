@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Nelson Rodrigues — Carrossel Reunião de Cultura (Canva)</title>
+
+<meta name="hz:slide-selector" content=".card">
+<meta name="hz:canvas-width" content="1080">
+<meta name="hz:canvas-height" content="1350">
+
+<link rel="stylesheet" href="https://use.typekit.net/ksh4kev.css">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #2b2723;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 48px 0;
+}
+
+/* ---------------------------------------------------------------
+   CANVAS
+   --------------------------------------------------------------- */
+.card {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+  background-color: #F5EFE0;
+  background-image:
+    radial-gradient(ellipse 620px 420px at 14% 12%, rgba(178,150,96,0.13), rgba(178,150,96,0) 70%),
+    radial-gradient(ellipse 560px 480px at 88% 78%, rgba(150,120,72,0.12), rgba(150,120,72,0) 70%),
+    radial-gradient(ellipse 400px 300px at 62% 34%, rgba(196,172,124,0.10), rgba(196,172,124,0) 72%);
+}
+
+/* newsprint tooth + edge vignette, sits under the type */
+.grain {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1080px;
+  height: 1350px;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(26,26,26,0.030) 0px, rgba(26,26,26,0.030) 1px, rgba(26,26,26,0) 1px, rgba(26,26,26,0) 3px),
+    repeating-linear-gradient(90deg, rgba(26,26,26,0.018) 0px, rgba(26,26,26,0.018) 1px, rgba(26,26,26,0) 1px, rgba(26,26,26,0) 4px),
+    radial-gradient(ellipse 900px 1120px at 50% 50%, rgba(90,70,40,0) 58%, rgba(90,70,40,0.16) 100%);
+}
+
+/* ---------------------------------------------------------------
+   SHARED REGIONS
+   --------------------------------------------------------------- */
+.masthead {
+  position: absolute;
+  z-index: 1;
+  top: 58px; left: 88px;
+  width: 904px;
+}
+.stage {
+  position: absolute;
+  z-index: 1;
+  top: 172px; left: 88px;
+  width: 904px;
+  height: 1032px;
+  display: flex;
+  flex-direction: column;
+}
+.folio {
+  position: absolute;
+  z-index: 1;
+  bottom: 56px; left: 88px;
+  width: 904px;
+}
+
+/* ---------------------------------------------------------------
+   TYPE ROLES  (applied on the elements themselves, per export rules)
+   --------------------------------------------------------------- */
+.display {
+  font-family: "miller-display", serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  letter-spacing: -0.012em;
+  line-height: 0.88;
+}
+.headline {
+  font-family: "miller-headline", serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  letter-spacing: -0.008em;
+  line-height: 1.08;
+}
+.deck {
+  font-family: "miller-headline", serif;
+  font-weight: 300;
+  color: #1A1A1A;
+  line-height: 1.24;
+}
+.body {
+  font-family: "miller-text", serif;
+  font-weight: 400;
+  color: #262220;
+  font-size: 38px;
+  line-height: 1.44;
+}
+.kicker {
+  font-family: "acumin-pro-condensed", sans-serif;
+  font-weight: 700;
+  color: #B3261E;
+  text-transform: uppercase;
+  letter-spacing: 0.20em;
+  font-size: 27px;
+  line-height: 1;
+}
+.slug {
+  font-family: "news-gothic-std", sans-serif;
+  font-weight: 700;
+  color: #6B6255;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  font-size: 19px;
+  line-height: 1;
+}
+
+/* inline / secondary styles */
+.red      { color: #B3261E; }
+.ital     { font-family: "miller-text", serif; font-weight: 400; font-style: italic; }
+.hd-ital  { font-family: "miller-headline", serif; font-weight: 700; font-style: italic; }
+.strong   { font-family: "miller-text", serif; font-weight: 700; }
+
+/* ---------------------------------------------------------------
+   RULES / ORNAMENTS
+   --------------------------------------------------------------- */
+.rule-heavy { height: 9px;  background: #1A1A1A; }
+.rule-mid   { height: 4px;  background: #1A1A1A; }
+.rule-thin  { height: 2px;  background: #1A1A1A; }
+.rule-hair  { height: 1px;  background: #B7AD97; }
+.rule-red   { height: 5px;  background: #B3261E; }
+.gap-3  { height: 3px; }
+.gap-5  { height: 5px; }
+
+/* ===============================================================
+   CARD 1 — CAPA
+   =============================================================== */
+.c1-top { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; }
+.c1-kicker { margin-top: 34px; }
+.c1-display { font-size: 143px; margin-top: 26px; }
+.c1-deck { font-size: 47px; margin-top: 40px; }
+.c1-swipe {
+  font-family: "acumin-pro-condensed", sans-serif;
+  font-weight: 700;
+  color: #B3261E;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 25px;
+  line-height: 1;
+}
+
+/* ===============================================================
+   CARD 2 — 1929
+   =============================================================== */
+.c2-year { font-size: 224px; color: #B3261E; line-height: 0.82; }
+.c2-lead { font-size: 62px; margin-top: 40px; }
+.c2-note {
+  border-left: 6px solid #B3261E;
+  padding-left: 32px;
+  margin-top: 52px;
+}
+
+/* ===============================================================
+   CARD 3 — A ESCOLA
+   =============================================================== */
+.c3-head { font-size: 66px; }
+.dropcap {
+  float: left;
+  font-family: "miller-display", serif;
+  font-weight: 700;
+  color: #B3261E;
+  font-size: 132px;
+  line-height: 0.76;
+  margin: 12px 18px 0 0;
+}
+.c3-body { font-size: 42px; line-height: 1.42; }
+
+/* ===============================================================
+   CARD 4 — ESTREIA
+   =============================================================== */
+.c4-box { text-align: center; }
+.c4-date {
+  font-family: "acumin-pro-condensed", sans-serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 44px;
+  line-height: 1.1;
+}
+.c4-title { font-size: 122px; color: #B3261E; line-height: 0.94; }
+.c4-credit { font-size: 40px; }
+
+/* ===============================================================
+   CARD 5 — TRÊS PLANOS
+   =============================================================== */
+.c5-cols { display: flex; }
+.c5-col {
+  width: 301px;
+  padding: 0 26px;
+  border-left: 2px solid #1A1A1A;
+  text-align: center;
+}
+.c5-col:first-child { border-left: none; padding-left: 0; }
+.c5-col:last-child  { padding-right: 0; }
+.c5-num { font-family: "miller-display", serif; font-weight: 700; color: #B3261E; font-size: 74px; line-height: 1; }
+.c5-word {
+  font-family: "acumin-pro-condensed", sans-serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: 36px;
+  line-height: 1.05;
+  margin-top: 20px;
+}
+.c5-close { font-size: 56px; }
+
+/* ===============================================================
+   CARD 6 — O QUE VEIO DEPOIS
+   =============================================================== */
+.c6-row {
+  font-family: "miller-headline", serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  font-size: 88px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  padding: 26px 0;
+  border-top: 2px solid #1A1A1A;
+}
+.c6-row:last-of-type { border-bottom: 2px solid #1A1A1A; }
+.c6-close { font-size: 42px; line-height: 1.4; }
+
+/* ===============================================================
+   CARD 7 — CITAÇÃO
+   =============================================================== */
+.c7-mark {
+  font-family: "miller-display", serif;
+  font-weight: 700;
+  color: #B3261E;
+  font-size: 190px;
+  line-height: 0.6;
+  height: 108px;
+}
+.c7-quote { font-size: 76px; line-height: 1.12; }
+.c7-attr { font-size: 38px; line-height: 1.36; }
+
+/* ===============================================================
+   CARD 8 — FECHAMENTO
+   =============================================================== */
+.c8-ask { font-size: 82px; }
+.c8-body { font-size: 44px; }
+.c8-cta {
+  display: inline-block;
+  font-family: "acumin-pro-condensed", sans-serif;
+  font-weight: 700;
+  color: #F5EFE0;
+  background: #B3261E;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 31px;
+  line-height: 1;
+  padding: 22px 34px 20px;
+}
+.c8-sig {
+  font-family: "miller-display", serif;
+  font-weight: 700;
+  color: #1A1A1A;
+  font-size: 66px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-align: center;
+}
+
+.folio-row { display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ============================ 1 — CAPA ============================ -->
+<div class="card" data-document-role="page" data-label="01 — Capa" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-heavy"></div>
+    <div class="c1-top">
+      <span class="slug">Reunião de Cultura</span>
+      <span class="slug">Curadoria da semana · Nº 01</span>
+    </div>
+    <div class="rule-thin"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker c1-kicker">Recife, 1912 — Rio de Janeiro, 1980</p>
+
+    <h1 class="display c1-display">NELSON<br>RODRIGUES</h1>
+
+    <div style="margin-top: 44px;">
+      <div class="rule-heavy"></div>
+      <div class="gap-5"></div>
+      <div class="rule-thin"></div>
+    </div>
+
+    <p class="deck c1-deck">
+      Todo mundo repete <span class="hd-ital red">“toda unanimidade é burra”</span>.
+      Pouca gente sabe quem disse — e por&nbsp;quê.
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row">
+      <span class="c1-swipe">Arraste →</span>
+      <span class="slug">01 / 08</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================ 2 — 1929 ============================ -->
+<div class="card" data-document-role="page" data-label="02 — 1929" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker" style="margin-bottom: 26px;">A redação · 1929</p>
+
+    <h2 class="display c2-year">1929</h2>
+
+    <div style="margin-top: 40px;"><div class="rule-thin"></div></div>
+
+    <p class="headline c2-lead">
+      Aos 17 anos, dentro da redação onde trabalhava,
+      Nelson viu o irmão Roberto ser baleado.
+    </p>
+
+    <div class="c2-note">
+      <p class="body" style="font-size: 42px;">
+        Roberto morreu <span class="strong red">três dias depois</span>.
+      </p>
+    </div>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">A redação</span><span class="slug">02 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 3 — A ESCOLA ============================ -->
+<div class="card" data-document-role="page" data-label="03 — A escola" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker" style="margin-bottom: 34px;">Página policial</p>
+
+    <h2 class="headline c3-head">
+      Aos 13, Nelson já era repórter policial
+      no jornal do pai.
+    </h2>
+
+    <div style="margin: 46px 0 40px;">
+      <div class="rule-thin"></div>
+      <div class="gap-3"></div>
+      <div class="rule-hair"></div>
+    </div>
+
+    <p class="body c3-body">
+      <span class="dropcap">A</span> escola dele foi o Brasil real:
+      <span class="strong red">crime, culpa e desejo</span>
+      por trás das manchetes.
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">A escola</span><span class="slug">03 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 4 — ESTREIA ============================ -->
+<div class="card" data-document-role="page" data-label="04 — A estreia" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage c4-box" style="justify-content: center;">
+    <p class="kicker" style="letter-spacing: 0.24em;">Theatro Municipal do Rio</p>
+
+    <div style="margin: 40px 0 44px;">
+      <div class="rule-heavy"></div>
+      <div class="gap-5"></div>
+      <div class="rule-thin"></div>
+    </div>
+
+    <p class="c4-date">28 de dezembro<br>de 1943</p>
+
+    <div style="margin: 40px 0; display: flex; justify-content: center;">
+      <svg width="180" height="16" viewBox="0 0 180 16" aria-hidden="true">
+        <rect x="0" y="7.2" width="52" height="2" fill="#1A1A1A"></rect>
+        <rect x="128" y="7.2" width="52" height="2" fill="#1A1A1A"></rect>
+        <path d="M66 8 L71 3 L76 8 L71 13 Z" fill="#1A1A1A"></path>
+        <path d="M114 8 L109 3 L104 8 L109 13 Z" fill="#1A1A1A"></path>
+        <path d="M90 0 L98 8 L90 16 L82 8 Z" fill="#B3261E"></path>
+      </svg>
+    </div>
+
+    <h2 class="display c4-title">VESTIDO<br>DE NOIVA</h2>
+
+    <div style="margin: 44px 0 36px;">
+      <div class="rule-thin"></div>
+      <div class="gap-5"></div>
+      <div class="rule-heavy"></div>
+    </div>
+
+    <p class="body c4-credit">
+      estreia com direção de <span class="ital">Ziembinski</span>
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">A estreia</span><span class="slug">04 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 5 — TRÊS PLANOS ============================ -->
+<div class="card" data-document-role="page" data-label="05 — Três planos" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker" style="text-align: center;">Três planos no mesmo palco</p>
+
+    <div style="margin: 46px 0 52px;">
+      <div class="rule-heavy"></div>
+      <div class="gap-5"></div>
+      <div class="rule-thin"></div>
+    </div>
+
+    <div class="c5-cols">
+      <div class="c5-col">
+        <p class="c5-num">I</p>
+        <p class="c5-word">Realidade</p>
+      </div>
+      <div class="c5-col">
+        <p class="c5-num">II</p>
+        <p class="c5-word">Memória</p>
+      </div>
+      <div class="c5-col">
+        <p class="c5-num">III</p>
+        <p class="c5-word">Alucinação</p>
+      </div>
+    </div>
+
+    <div style="margin: 52px 0 46px;">
+      <div class="rule-thin"></div>
+      <div class="gap-5"></div>
+      <div class="rule-heavy"></div>
+    </div>
+
+    <p class="headline c5-close" style="text-align: center;">
+      O Brasil nunca tinha visto nada igual.
+    </p>
+    <p class="headline c5-close red" style="text-align: center; margin-top: 22px;">
+      Nascia o teatro moderno brasileiro.
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">Vestido de Noiva</span><span class="slug">05 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 6 — O QUE VEIO DEPOIS ============================ -->
+<div class="card" data-document-role="page" data-label="06 — O que veio depois" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker" style="margin-bottom: 46px;">O que veio depois</p>
+
+    <p class="c6-row"><span class="red">17</span> peças</p>
+    <p class="c6-row">Censura</p>
+    <p class="c6-row">Escândalo</p>
+
+    <p class="body c6-close" style="margin-top: 54px;">
+      E <span class="ital strong">A Vida Como Ela É</span> — os contos diários
+      que viraram um gênero à parte.
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">A obra</span><span class="slug">06 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 7 — CITAÇÃO ============================ -->
+<div class="card" data-document-role="page" data-label="07 — A citação" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="c7-mark">“</p>
+
+    <p class="display c7-quote">
+      <span class="red">Toda unanimidade é burra.</span>
+      Quem pensa com a unanimidade não precisa pensar.
+    </p>
+
+    <div style="margin: 54px 0 34px;">
+      <div class="rule-heavy"></div>
+      <div class="gap-5"></div>
+      <div class="rule-thin"></div>
+    </div>
+
+    <p class="body c7-attr">
+      <span class="ital">— a frase que ele deixou para todo debate que viria depois.</span>
+    </p>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">A frase</span><span class="slug">07 / 08</span></div>
+  </footer>
+</div>
+
+<!-- ============================ 8 — FECHAMENTO ============================ -->
+<div class="card" data-document-role="page" data-label="08 — Fechamento" data-canvas-width="1080" data-canvas-height="1350">
+  <div class="grain"></div>
+
+  <header class="masthead">
+    <div class="rule-mid"></div>
+    <div class="c1-top"><span class="slug">Reunião de Cultura</span><span class="slug">Nelson Rodrigues</span></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <main class="stage" style="justify-content: center;">
+    <p class="kicker" style="margin-bottom: 38px;">A pergunta que fica</p>
+
+    <h2 class="headline c8-ask">
+      Por que o Brasil <span class="red">cita</span> Nelson
+      sem <span class="red">ler</span> Nelson?
+    </h2>
+
+    <div style="margin: 52px 0 46px;">
+      <div class="rule-heavy"></div>
+      <div class="gap-5"></div>
+      <div class="rule-thin"></div>
+    </div>
+
+    <p class="body c8-body">
+      O ensaio completo está na newsletter.
+    </p>
+
+    <p style="margin-top: 38px;"><span class="c8-cta">Link na bio</span></p>
+
+    <div style="margin-top: 96px;">
+      <div class="rule-thin"></div>
+      <p class="c8-sig" style="margin: 26px 0;">Reunião de Cultura</p>
+      <div class="rule-heavy"></div>
+    </div>
+  </main>
+
+  <footer class="folio">
+    <div class="rule-hair"></div>
+    <div class="folio-row"><span class="slug">Fim</span><span class="slug">08 / 08</span></div>
+  </footer>
+</div>
+
+</body>
+</html>
