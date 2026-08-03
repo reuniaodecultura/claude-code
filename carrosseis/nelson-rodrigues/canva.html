@@ -173,14 +173,15 @@ body {
    CARD 3 — A ESCOLA
    =============================================================== */
 .c3-head { font-size: 58px; }
+.c3-capline { display: flex; align-items: flex-start; }
 .dropcap {
-  float: left;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   color: #B3261E;
-  font-size: 132px;
-  line-height: 0.76;
-  margin: 12px 18px 0 0;
+  font-size: 118px;
+  line-height: 0.78;
+  width: 96px;
+  flex: none;
 }
 .c3-body { font-size: 42px; line-height: 1.42; }
 
@@ -385,11 +386,13 @@ body {
       <div class="rule-hair"></div>
     </div>
 
-    <p class="body c3-body">
-      <span class="dropcap">A</span> escola dele foi o Brasil real:
-      <span class="strong red">crime, culpa e desejo</span>
-      por trás das manchetes.
-    </p>
+    <div class="c3-capline">
+      <span class="dropcap">A</span>
+      <p class="body c3-body" style="flex: 1;">escola dele foi o Brasil real:
+        <span class="strong red">crime, culpa e desejo</span>
+        por trás das manchetes.
+      </p>
+    </div>
   </main>
 
   <footer class="folio">
