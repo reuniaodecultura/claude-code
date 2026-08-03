@@ -8,7 +8,41 @@ Carrossel de 8 cards para o perfil **Reunião de Cultura**.
 | --- | --- |
 | `index.html` | Fonte dos 8 cards. Um `<div class="card">` por card, canvas fixo 1080×1350. |
 | `png/card-01.png` … `card-08.png` | Os 8 cards exportados, 1080×1350 (4:5), prontos para postar. |
+| `canva.html` | Variante para importar no Canva — mesmo layout, fontes trocadas. |
 | `legenda.md` | Legenda + hashtags, com um ponto de atenção no 3º parágrafo. |
+
+## Variante Canva (`canva.html`)
+
+Design importado: https://www.canva.com/d/6uzq0M-GKGvRe3i (8 páginas editáveis)
+
+Duas diferenças em relação ao `index.html`, e as duas são exigência do importador:
+
+1. **Fontes.** O kit da Adobe Fonts é travado por domínio, então o Canva não
+   consegue resolvê-lo — a primeira importação caiu inteira numa sans genérica.
+   A variante usa famílias que existem tanto no Google Fonts quanto na
+   biblioteca do Canva, então o nome casa mesmo sem baixar o webfont:
+
+   | Papel | `index.html` | `canva.html` |
+   | --- | --- | --- |
+   | Display e manchete | Miller Display / Headline | Playfair Display |
+   | Texto corrido | Miller Text | PT Serif |
+   | Chapéus | Acumin Pro Condensed | Oswald |
+   | Fólio e cabeçalho | News Gothic Std | Archivo |
+
+   Playfair e PT Serif compõem mais largo que Miller no mesmo corpo, então os
+   tamanhos de display caem de 10% a 15% para as linhas longas continuarem
+   dentro da coluna de 904 px.
+
+2. **Capitular do card 3.** O importador ignora `float`, e a capitular caía por
+   cima do parágrafo. Na variante ela virou uma linha flex com a letra em caixa
+   própria de largura fixa.
+
+Cada card leva `data-document-role="page"` e um `data-label`, que é o que faz o
+Canva criar 8 páginas em vez de uma rolagem única.
+
+Para reimportar depois de editar: use a URL crua fixada no SHA do commit
+(`raw.githubusercontent.com/<owner>/<repo>/<sha>/…`) — a URL por branch fica em
+cache no CDN e serve a versão antiga.
 
 ## Direção de arte
 
